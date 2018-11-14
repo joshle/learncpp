@@ -1,10 +1,10 @@
 build:
-	make clear
+	make clean
 	g++ -shared -fPIC -c pycpp.cpp
 	g++ -shared -fPIC -o libpycpp.so pycpp.o
 
 run:
 	python testcpp.py
 
-clear:
+clean:
 	rm -f *.o *.so *.a

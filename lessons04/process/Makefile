@@ -16,5 +16,5 @@ link:
 
 #生成可执行文件
 
-clear:
+clean:
 	rm -f test*
