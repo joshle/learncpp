@@ -1,20 +1,25 @@
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:.
+
 build:
 	make clean
 	g++ swapfunc.cpp -c -o swapfunc.o
 	g++ swapmain.cpp -c -o swapmain.o
 	g++ swapmain.o swapfunc.o -o swap
+	./swap
 
-lswap:
+static:
 	make clean
-	ar rcs libswap.a swapfunc.o
-	g++ -L$$(pwd) -lswap swapmain.o -o swap2
+	g++ swapfunc.cpp -c -o swapfunc.o
+	g++ swapmain.cpp -c -o swapmain.o
+	# ar rcs libswap.a swapfunc.o
+	ar -rc swapfunc.a swapfunc.o
+	g++ swapmain.o swapfunc.a -o swap2
+	./swap2
 
 share:
 	make clean
-	g++ swapmain.cpp -c -o swapmain.o
-	g++ -shared -fPIC -c swapfunc.cpp
-	g++ -shared -fPIC -o libswapfunc.so swapfunc.o
-	g++ -L. -lswapfunc swapmain.o -o swap3
+	g++ swapfunc.cpp -shared -fPIC -o libswap.so
+	g++ swapmain.cpp -L. -lswap -o swap3
 	./swap3
 
 clean:
